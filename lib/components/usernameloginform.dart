@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_coaching/pages/moblie_code.dart';
 import 'package:validators/validators.dart';
+import 'package:online_coaching/services/auth.dart';
 
 class LoginFormUserName extends StatefulWidget {
   const LoginFormUserName({Key key}) : super(key: key);
@@ -12,6 +13,8 @@ class LoginFormUserName extends StatefulWidget {
 class _LoginFormState extends State<LoginFormUserName> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _agreedToTOS = true;
+  String _username;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +57,12 @@ class _LoginFormState extends State<LoginFormUserName> {
                   ),
                   labelText: 'نام کاربری',
                 ),
+                onSaved: (String value){
+                  _username = value;
+                },
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
-                  }
-                  else if(!isNumeric(value)){
-                    return 'شماره تلفن را به فرمت مناسب وارد کنید';
                   }
                 },
               ),
@@ -88,17 +91,17 @@ class _LoginFormState extends State<LoginFormUserName> {
                   ),
                   labelText: 'گذرواژه',
                 ),
+                onSaved: (String value){
+                  _password = value;
+                },
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
                   }
-                  else if(!isNumeric(value)){
-                    return 'شماره تلفن را به فرمت مناسب وارد کنید';
-                  }
                 },
               ),
             ),
-            new Container(height: MediaQuery.of(context).size.height * .2),
+            new Container(height: MediaQuery.of(context).size.height * .16),
             // button
             new Container(
                 color: Colors.white,
@@ -111,7 +114,7 @@ class _LoginFormState extends State<LoginFormUserName> {
                       side: BorderSide(color: Colors.white)
                   ),
                   child: new Text(
-                    'دریافت کد',
+                    'ورود',
                     style: new TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -121,7 +124,8 @@ class _LoginFormState extends State<LoginFormUserName> {
                   onPressed: (){
                     if(_formKey.currentState.validate()){
                       print('ok');
-                      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: MobileLoginCode())));
+                      _formKey.currentState.save();
+                      _do_login();
                     }
                   },
                 )
@@ -144,6 +148,21 @@ class _LoginFormState extends State<LoginFormUserName> {
         ),
       ),
     );
+  }
+
+  _do_login() async{
+    print('in login');
+    var token = await Auth().getToken(_username.toString(), _password.toString());
+    var TOKEN = token['token'];
+    Map header = {
+      'Authorization': 'JWT ${TOKEN}'
+    };
+    var response = await Auth().getRole(_username, header);
+    if(response['role'] == 'athlete'){
+      //TODO inja page e athlete ro push mikonim
+    } else if(response['role'] == 'coach'){
+      //TODO inja page e coach ro push mikonim
+    }
   }
 
   bool _submittable() {
