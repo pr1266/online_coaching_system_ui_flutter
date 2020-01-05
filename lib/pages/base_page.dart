@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_coaching/pages/register.dart';
 import 'package:online_coaching/pages/mobile_login.dart';
+import 'package:online_coaching/pages/username_login.dart';
 
 class BasePage extends StatelessWidget{
   @override
@@ -43,7 +44,9 @@ class BasePage extends StatelessWidget{
                             fontSize: 20
                         ),
                       ),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: UserNameLogin())));
+                      },
                     )
                 ),
                 new Container(
