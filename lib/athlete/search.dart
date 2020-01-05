@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SearchPage extends StatelessWidget{
-
+class SearchPage_ extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return SearchPage();
+  }
+}
+class SearchPage extends State<SearchPage_>{
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool searched = false;
+  String _search_val;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -38,25 +47,42 @@ class SearchPage extends StatelessWidget{
                   Radius.circular(50.0),
                 ),
             ),
-            child: new Row(
-              children: <Widget>[
-                new Container(
-                  padding: EdgeInsets.only(right: 20),
-                  child: new Icon(Icons.search, size: 40,),
+            child: new Container(
+              child : new TextFormField(
+                key: _formKey,
+                onSaved: (value) {
+                  _search_val = value;
+                },
+                decoration: new InputDecoration(
+                  hintText: 'جستجو...',
+                  contentPadding: EdgeInsets.only(right: 20),
+                  icon: IconButton(
+                    icon : Icon(Icons.search),
+                    onPressed: do_search(),
+                  ),
+
                 ),
-                new Container(
-                    padding: EdgeInsets.only(right: 10),
-                  child: new Text('جستجو...', style: new TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20
-                  ),)
-                )
-              ],
-            ),
+              ),
+              margin: EdgeInsets.all(20),
+            )
           ),
+          searched == 0 ? null :
+              ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  Container(
+                    color: Colors.black,
+                  )
+                ],
+              )
         ],
       ),
     );
+  }
+
+  do_search() async{
+    //TODO DO SEARCH
+    searched = true;
+    print(_search_val);
   }
 }
