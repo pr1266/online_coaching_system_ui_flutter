@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_coaching/pages/moblie_code.dart';
 import 'package:validators/validators.dart';
 import 'package:online_coaching/services/auth.dart';
+import 'package:online_coaching/athlete/base_page.dart';
 
 class LoginFormUserName extends StatefulWidget {
   const LoginFormUserName({Key key}) : super(key: key);
@@ -151,18 +152,20 @@ class _LoginFormState extends State<LoginFormUserName> {
   }
 
   _do_login() async{
-    print('in login');
-    var token = await Auth().getToken(_username.toString(), _password.toString());
-    var TOKEN = token['token'];
-    Map header = {
-      'Authorization': 'JWT ${TOKEN}'
-    };
-    var response = await Auth().getRole(_username, header);
-    if(response['role'] == 'athlete'){
-      //TODO inja page e athlete ro push mikonim
-    } else if(response['role'] == 'coach'){
-      //TODO inja page e coach ro push mikonim
-    }
+
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: myHomePageState())));
+//    print('in login');
+//    var token = await Auth().getToken(_username.toString(), _password.toString());
+//    var TOKEN = token['token'];
+//    Map header = {
+//      'Authorization': 'JWT ${TOKEN}'
+//    };
+//    var response = await Auth().getRole(_username, header);
+//    if(response['role'] == 'athlete'){
+//      //TODO inja page e athlete ro push mikonim
+//    } else if(response['role'] == 'coach'){
+//      //TODO inja page e coach ro push mikonim
+//    }
   }
 
   bool _submittable() {
