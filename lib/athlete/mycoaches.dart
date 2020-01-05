@@ -75,7 +75,23 @@ class CoachPages_ extends State<CoachPages>{
                   // TODO inja bayad besazish:
                 }
               )
-              : null,
+              : Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(left: 15, right: 15),
+                  height: MediaQuery.of(context).size.height * .2,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15))
+                  ),
+                  child: new Text(
+                    'در حال حاضر شما شاگرد هیچ مربی نیستید',
+                    style: new TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
         ],
       ),
     );
