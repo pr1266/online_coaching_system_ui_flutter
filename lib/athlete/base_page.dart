@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:online_coaching/athlete/search.dart';
 import 'package:online_coaching/athlete/profile.dart';
 import 'package:online_coaching/athlete/programs.dart';
-
+import 'package:online_coaching/athlete/mycoaches.dart';
 
 class myHomePageState extends StatefulWidget{
   @override
@@ -20,6 +20,7 @@ class myHomePage extends State<myHomePageState>{
   int currentpageindex = 0;
   final children_list = [
     ProfilePage(),
+    CoachPages(),
     SearchPage(),
     ProgramPage()
   ];
@@ -35,16 +36,65 @@ class myHomePage extends State<myHomePageState>{
     return new Scaffold(
       backgroundColor: Colors.blue,
       body: this.children_list[this.currentpageindex],
-        bottomNavigationBar: new BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            new BottomNavigationBarItem(title : new Text('profile', style: TextStyle(color: Colors.black)), icon: new Icon(Icons.home, color: Colors.black)),
-            new BottomNavigationBarItem(title : new Text('coaches', style: TextStyle(color: Colors.black)), icon: new Icon(Icons.search, color: Colors.black)),
-            new BottomNavigationBarItem(title : new Text('search', style: TextStyle(color: Colors.black)), icon: new Icon(Icons.add_box, color: Colors.black)),
-            new BottomNavigationBarItem(title : new Text('packages', style: TextStyle(color: Colors.black)), icon: new Icon(Icons.favorite, color: Colors.black)),
-            new BottomNavigationBarItem(title : new Text('help', style: TextStyle(color: Colors.black)), icon: new Icon(Icons.account_box, color: Colors.black)),
-          ],
-          onTap: changePage,
-          currentIndex: currentpageindex,
+        bottomNavigationBar: new Container(
+          height: MediaQuery.of(context).size.height * .1,
+          decoration: new BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30),
+              topLeft: Radius.circular(30)
+            )
+          ),
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Container(
+                padding: EdgeInsets.all(10),
+                child: new GestureDetector(
+                  onTap: (){
+                    changePage(0);
+                  },
+                  child: new Icon(Icons.account_box),
+                ),
+              ),
+              new Container(
+                padding: EdgeInsets.all(10),
+                child: new GestureDetector(
+                  onTap: (){
+                    changePage(1);
+                  },
+                  child: new Icon(Icons.assignment),
+                ),
+              ),
+              new Container(
+                padding: EdgeInsets.all(10),
+                child: new GestureDetector(
+                  onTap: (){
+                    changePage(2);
+                  },
+                  child: new Icon(Icons.search),
+                ),
+              ),
+              new Container(
+                padding: EdgeInsets.all(10),
+                child: new GestureDetector(
+                  onTap: (){
+                    changePage(3);
+                  },
+                  child: new Icon(Icons.play_arrow),
+                ),
+              ),
+              new Container(
+                padding: EdgeInsets.all(10),
+                child: new GestureDetector(
+                  onTap: (){
+                    changePage(4);
+                  },
+                  child: new Icon(Icons.sms),
+                ),
+              )
+            ],
+          ),
         )
     );
   }

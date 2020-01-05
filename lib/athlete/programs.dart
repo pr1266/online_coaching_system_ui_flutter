@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProgramPage extends StatelessWidget{
-  final COLOR = Colors.green;
+  final COLOR = Colors.blue;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
