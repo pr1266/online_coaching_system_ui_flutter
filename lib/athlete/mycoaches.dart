@@ -1,6 +1,24 @@
 import 'package:flutter/material.dart';
 
-class CoachPages extends StatelessWidget{
+class CoachPages extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return CoachPages_();
+  }
+}
+class CoachPages_ extends State<CoachPages>{
+
+  var coach_list = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  getData()async{}
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +47,35 @@ class CoachPages extends StatelessWidget{
           new Container(
             height: MediaQuery.of(context).size.height * .1,
           ),
-          new Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
-            height: MediaQuery.of(context).size.height * .1,
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(50.0),
-              ),
-            ),
-            child: new Row(
-              children: <Widget>[
-                new Container(
-                  padding: EdgeInsets.only(right: 20),
-                  child: new Icon(Icons.search, size: 40,),
-                ),
-                new Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: new Text('جستجو...', style: new TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20
-                    ),)
-                )
-              ],
-            ),
-          ),
+          coach_list.length != 0 ?
+              new ListView.builder(
+                itemBuilder: (BuildContext context, int index){
+                  return new Container(
+                    height: MediaQuery.of(context).size.height * .4,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                    ),
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Container(
+                          child: Image.network('sss'),
+                        ),
+                        new Container(
+                          child: new Text('sss' , style: new TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold
+                          ),),
+                        )
+                      ],
+                    ),
+                  );
+                  // TODO inja bayad besazish:
+                }
+              )
+              : null,
         ],
       ),
     );
