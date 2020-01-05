@@ -6,6 +6,7 @@ import 'package:online_coaching/athlete/search.dart';
 import 'package:online_coaching/athlete/profile.dart';
 import 'package:online_coaching/athlete/programs.dart';
 import 'package:online_coaching/athlete/mycoaches.dart';
+import 'package:online_coaching/athlete/coach_details.dart';
 
 class myHomePageState extends StatefulWidget{
   @override
@@ -22,7 +23,8 @@ class myHomePage extends State<myHomePageState>{
     ProfilePage(),
     CoachPages(),
     SearchPage(),
-    ProgramPage()
+    ProgramPage(),
+    CoachDetails(),
   ];
 
   changePage(int indexPage){
@@ -39,6 +41,7 @@ class myHomePage extends State<myHomePageState>{
         bottomNavigationBar: new Container(
           height: MediaQuery.of(context).size.height * .1,
           decoration: new BoxDecoration(
+            border: Border.all(width: 2, color: Colors.black),
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(30),
