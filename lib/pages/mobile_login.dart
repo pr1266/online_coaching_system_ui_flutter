@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_coaching/components/mobile_login_form.dart';
+import 'package:online_coaching/pages/moblie_code.dart';
 
 class MobileLogin extends StatelessWidget{
   @override
@@ -47,7 +48,9 @@ class MobileLogin extends StatelessWidget{
                     new Container(
                       padding: new EdgeInsets.only(left: 20),
                       child: new GestureDetector(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
                         child: new Icon(Icons.arrow_forward),
                       ),
                     )

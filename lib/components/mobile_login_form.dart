@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_coaching/pages/moblie_code.dart';
 import 'package:validators/validators.dart';
 
 class LoginForm extends StatefulWidget {
@@ -86,7 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: (){
                     if(_formKey.currentState.validate()){
                       print('ok');
-                      //Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: MobileLogin())));
+                      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: MobileLoginCode())));
                     }
                   },
                 )
