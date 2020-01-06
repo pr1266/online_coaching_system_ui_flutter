@@ -70,7 +70,101 @@ class MobileLoginCode extends StatelessWidget{
                 child: new ListView(
                   children: <Widget>[
                     new Container(
-                      color: Colors.blue,
+                      height: MediaQuery.of(context).size.height * .1,
+                      decoration:  new BoxDecoration(
+                        color: Colors. white,
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                      ),
+                    ),
+                    new Padding(
+                      padding: EdgeInsets.all(8),
+                      child: new Form(
+                        child: new Container(
+                          color: Colors.white,
+                          height: 70,
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              new Container(
+                                color: Colors.white,
+                                height: 50,
+                                width: 50,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(8.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    hintText: "4",
+                                  ),
+                                ),
+                              ),
+                              new Container(
+                                color: Colors.white,
+                                height: 50,
+                                width: 50,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(8.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    hintText: "3",
+                                  ),
+                                ),
+                              ),
+                              new Container(
+                                color: Colors.white,
+                                height: 50,
+                                width: 50,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(8.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    hintText: "2",
+                                  ),
+                                ),
+                              ),
+                              new Container(
+                                color: Colors.white,
+                                height: 50,
+                                width: 50,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(8.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    hintText: "1",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 200,
+                      color: Colors.white,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 60,
+                      margin: EdgeInsets.only(left: 50, right: 50),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(Radius.circular(50))
+                      ),
+                      child: new Text('تایید', style: new TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30
+                      ),),
                     )
                   ],
                 ),

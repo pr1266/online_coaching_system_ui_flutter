@@ -1,3 +1,4 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -66,7 +67,22 @@ class CoachDetails extends StatelessWidget{
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         color: Colors.white,
                       ),
-
+                      child: new ListView(
+                        children: <Widget>[
+                          new Container(
+                            height: MediaQuery.of(context).size.height * .06,
+                          ),
+                          new Container(
+                            alignment: Alignment.center,
+                            child: new Text('افتخارات', style: TextStyle(fontSize: 30),),
+                          ),
+                          new Container(
+                            child: new Text('ششسیشنیشکسینکشسینشکینشکسینشکسیمنشکسینشکمسینشکمسینشکمسینشکسمینشکسمینشکمسینشکسمینکشسمنیشسمکنیشسکیمنشسکیمنشکسمینشکسمینکشمسینکمشسنsdfsdfsdfsdfsdfsdfsdfskdfjd;hkf;lhkd;flgks;lfgkd;lkg;slkfd;kیکشمنسیکمشسنیکمشسنیکمشنسیکمشنسیکمشنسیکشمنسی',
+                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+                            margin: EdgeInsets.only(right: 10, left: 10),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -85,7 +101,66 @@ class CoachDetails extends StatelessWidget{
                 child: new ListView(
                   shrinkWrap: true,
                   children: <Widget>[
+                    new Container(
+                      height: MediaQuery.of(context).size.height * .01,
+                    ),
+                    new Center(
+                      child: new Container(
 
+                        height: MediaQuery.of(context).size.height * .1,
+                        child: CircularProfileAvatar(
+                          '',
+                          backgroundColor: Colors.red,
+                          radius: 100,
+                        ),
+                      ),
+                    ),
+
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: MediaQuery.of(context).size.height * .05,
+                      color: Colors.white,
+                      child: new Text('نام : ', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                    ),
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: MediaQuery.of(context).size.height * .05,
+                      color: Colors.white,
+                      child: new Text('هادی چوپان', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                    ),
+
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: MediaQuery.of(context).size.height * .05,
+                      color: Colors.white,
+                      child: new Text('مدرک : ', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                    ),
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: MediaQuery.of(context).size.height * .05,
+                      color: Colors.white,
+                      child: new Text('لیسانس تربیت بدنی', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                    ),
+
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: MediaQuery.of(context).size.height * .05,
+                      color: Colors.white,
+                      child: new Text('استان : ', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                    ),
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: MediaQuery.of(context).size.height * .05,
+                      color: Colors.white,
+                      child: new Text('شیراز', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                    ),
+                    new Container(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    new Container(
+                      height: MediaQuery.of(context).size.height * .1,
+                      color: Colors.yellow,
+                    )
                   ],
                 ),
               ),
