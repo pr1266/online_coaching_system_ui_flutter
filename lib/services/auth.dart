@@ -8,8 +8,8 @@ class Auth{
     print(UserName);
     print(PassWord);
     var body = {
-      'username': UserName.toString(),
-      'password': PassWord.toString()
+      'username': UserName,
+      'password': PassWord
     };
     var response = await http.post('http://10.0.2.2:8000/api-token-auth/', body: body);
     var responsebody = json.decode(response.body);
