@@ -9,6 +9,13 @@ import 'package:online_coaching/athlete/mycoaches.dart';
 import 'package:online_coaching/athlete/coach_details.dart';
 
 class myHomePageState extends StatefulWidget{
+
+  final nat_code;
+  final header;
+  final username;
+
+  myHomePageState({this.header, this.nat_code, this.username});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -22,7 +29,7 @@ class myHomePage extends State<myHomePageState>{
   final children_list = [
     ProfilePage(),
     CoachPages(),
-    SearchPage(),
+    SearchPage_(),
     ProgramPage(),
     CoachDetails(),
   ];
