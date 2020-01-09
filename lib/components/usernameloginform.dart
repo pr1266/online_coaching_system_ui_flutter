@@ -164,6 +164,7 @@ class _LoginFormState extends State<LoginFormUserName> {
       //TODO inja page e athlete ro push mikonim
       print('athlete');
       var inf_response = await Auth().getInfo(_username, header, true);
+      // TODO az function bala biroon nmiad
       var athlete_username = inf_response['user'];
       var athlete_nat_code = inf_response['nat_code'];
       Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
