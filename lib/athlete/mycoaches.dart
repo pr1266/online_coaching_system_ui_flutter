@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:online_coaching/services/athlete.dart';
 
 class CoachPages extends StatefulWidget{
+  final nat_code;
+  final header;
+
+  CoachPages({this.nat_code, this.header});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -18,7 +24,11 @@ class CoachPages_ extends State<CoachPages>{
     getData();
   }
 
-  getData()async{}
+  getData()async{
+    //TODO: inja coach haye athlete ro migirim:
+    var response = await Services().myCoaches(widget.nat_code, widget.header);
+    coach_list.addAll(response['coaches']);
+  }
 
   @override
   Widget build(BuildContext context) {

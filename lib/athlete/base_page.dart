@@ -28,10 +28,15 @@ class myHomePage extends State<myHomePageState>{
   int currentpageindex = 0;
   final children_list = [
     ProfilePage(),
+    // TODO ino mikhaim
     CoachPages(),
+    // TODO ino mikhaim
     SearchPage_(),
     ProgramPage(),
+    // TODO inam k bayad pak she
     CoachDetails(),
+
+    //TODO pas shod search o coach pages
   ];
 
   changePage(int indexPage){
