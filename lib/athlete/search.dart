@@ -48,19 +48,23 @@ class SearchPage extends State<SearchPage_>{
                 ),
             ),
             child: new Container(
-              child : new TextFormField(
+              child : new Form(
                 key: _formKey,
-                onSaved: (value) {
-                  _search_val = value;
-                },
-                decoration: new InputDecoration(
-                  hintText: 'جستجو...',
-                  contentPadding: EdgeInsets.only(right: 20),
-                  icon: IconButton(
-                    icon : Icon(Icons.search),
-                    onPressed: do_search(),
+                child : new TextFormField(
+                  onSaved: (String value) {
+                    _search_val = value;
+                  },
+                  decoration: new InputDecoration(
+                    hintText: 'جستجو...',
+                    contentPadding: EdgeInsets.only(right: 20),
+                    icon: IconButton(
+                      icon : Icon(Icons.search),
+                      onPressed: (){
+                        _formKey.currentState.save();
+                        do_search();
+                      },
+                    ),
                   ),
-
                 ),
               ),
               margin: EdgeInsets.all(20),
@@ -83,6 +87,7 @@ class SearchPage extends State<SearchPage_>{
   do_search() async{
     //TODO DO SEARCH
     searched = true;
+    //_formKey.currentState.save();
     print(_search_val);
   }
 }

@@ -28,9 +28,9 @@ class Auth{
     var response;
     if(Type){
 
-      var response = await http.post('http://10.0.2.2:8000/get_username_athlete/', headers: Header, body: body);
+      response = await http.post('http://10.0.2.2:8000/get_username_athlete/', headers: Header, body: body);
     } else {
-      var response = await http.post('http://10.0.2.2:8000/get_username_coach/', headers: Header, body: body);
+      response = await http.post('http://10.0.2.2:8000/get_username_coach/', headers: Header, body: body);
     }
     var responsebody = json.decode(response.body);
     print(responsebody);

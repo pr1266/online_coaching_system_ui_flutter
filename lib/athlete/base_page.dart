@@ -27,7 +27,7 @@ class myHomePage extends State<myHomePageState>{
 
   int currentpageindex = 0;
   final children_list = [
-    ProfilePage(),
+    SearchPage_(),
     // TODO ino mikhaim
     CoachPages(),
     // TODO ino mikhaim

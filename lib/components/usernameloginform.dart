@@ -153,6 +153,7 @@ class _LoginFormState extends State<LoginFormUserName> {
 
   _do_login() async{
 
+//    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState())));
     print('in login');
     var token = await Auth().getToken(_username.toString(), _password.toString());
     var TOKEN = token['token'];
