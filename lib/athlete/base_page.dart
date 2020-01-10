@@ -34,7 +34,7 @@ class myHomePage extends State<myHomePageState>{
     SearchPage_(),
     ProgramPage(),
     // TODO inam k bayad pak she
-    CoachDetails(),
+    CoachProfile(),
 
     //TODO pas shod search o coach pages
   ];

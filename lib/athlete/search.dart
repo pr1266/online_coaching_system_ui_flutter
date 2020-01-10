@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_coaching/services/athlete.dart';
 import 'package:online_coaching/services/auth.dart';
 import 'package:online_coaching/models/models.dart';
+import 'package:online_coaching/athlete/coach_details.dart' as coach;
 
 class SearchPage_ extends StatefulWidget{
   final header;
@@ -121,39 +122,45 @@ class SearchPage extends State<SearchPage_>{
                 shrinkWrap: true,
                 itemCount: coaches.length,
                 itemBuilder: (BuildContext context, int index){
-                  return Container(
-                    height: MediaQuery.of(context).size.height * .1,
-                    margin: EdgeInsets.only(right: 15 , left: 15, top: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: Colors.white,
-                    ),
-                    child: new Row(
-                      children: <Widget>[
-                        new Container(
-                          padding: EdgeInsets.only(right: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          height: 60,
-                          width: 70,
-                          child: new CircleAvatar(
+                  return new GestureDetector(
+                    onTap: (){
+                      print('salam');
+                      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: new coach.CoachProfile(nat_code: coaches[index].nat_code, header: widget.header,))));
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * .1,
+                      margin: EdgeInsets.only(right: 15 , left: 15, top: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Colors.white,
+                      ),
+                      child: new Row(
+                        children: <Widget>[
+                          new Container(
+                            padding: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))
+                            ),
+                            height: 60,
+                            width: 70,
+                            child: new CircleAvatar(
                               backgroundImage: AssetImage('assets/1.jpg'),
-                          ),
-                        ),
-                        new Container(
-                          padding: EdgeInsets.only(right: 15),
-                          color: Colors.white,
-                          child: new Text(
-                            coaches[index].first_name + ' ' + coaches[index].last_name,
-                            style: new TextStyle(
-                              color: Colors.black,
-                              fontSize: 30
                             ),
                           ),
-                        ),
-                      ],
+                          new Container(
+                            padding: EdgeInsets.only(right: 15),
+                            color: Colors.white,
+                            child: new Text(
+                              coaches[index].first_name + ' ' + coaches[index].last_name,
+                              style: new TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
               }),

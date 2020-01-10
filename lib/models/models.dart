@@ -32,3 +32,12 @@ class Citys{
     name = utf8.decode(parsedJson['name'].toString().codeUnits);
   }
 }
+
+class CoachRecords{
+  String rec;
+  String year;
+  CoachRecords.fromJson(Map<String, dynamic> parsedJson){
+    rec = utf8.decode(parsedJson['text'].toString().codeUnits);
+    year = parsedJson['year'];
+  }
+}

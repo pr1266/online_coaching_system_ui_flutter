@@ -3,14 +3,45 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:http/http.dart';
+import 'package:online_coaching/models/models.dart' as models;
+import 'package:online_coaching/services/athlete.dart';
 
 
-class CoachDetails extends StatelessWidget{
+class CoachProfile extends StatefulWidget{
 
-  final String fullname = 'هادی چوپان';
-  final String degree = 'لیسانس تربیت بدنی';
-  final String city = 'اصفهان';
-  final records = 'سبیسیمبنسکبلنتلنابکلانبالمنیکمبلنکسمینبسکیمنبسیکمنلکیمانبکمانکمنیبمسیگبکمسگکمرزذورذدو.ئانمیبکلمنیبکلمنسکبلمنیکملنیکلمانلمنابمکانبکانیکبلنیکبملن';
+  final header;
+  final nat_code;
+
+  CoachProfile({this.header, this.nat_code});
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return CoachProfile_();
+  }
+}
+
+class CoachProfile_ extends State<CoachProfile>{
+
+  var first_name;
+  var last_name;
+  var degree;
+  //List<models.CoachRecords> recs = [];
+
+  getData() async{
+    // TODO inja detail ro betor e kamel begir:
+    var response = await Services().coachDetails(widget.nat_code, widget.header);
+    first_name = response['first_name'];
+    last_name = response['last_name'];
+    degree = response['degree'];
+    //TODO: inja recordsesh ro begir
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getData();
+  }
 
   Widget _buildProfileImage(){
     return Center(
@@ -68,7 +99,7 @@ class CoachDetails extends StatelessWidget{
     );
 
     return Text(
-      fullname,
+      first_name + ' ' + last_name,
       style: _nameStyle,
     );
   }
@@ -251,7 +282,52 @@ class CoachDetails extends StatelessWidget{
                       ),
                     ],
                   ),
-                )
+                ),
+                new Container(
+                  height: 100,
+                  color: Colors.white,
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Container(
+                        padding: EdgeInsets.only(right: 10),
+                        height: 50,
+                        width: 150,
+                        child: new ButtonTheme(
+                          minWidth: 100,
+                          buttonColor: Colors.white,
+                          child: new RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: Colors.black, width: 2,),
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                              ),
+                              onPressed: (){},
+                              child: new Text('ریپورت' , style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          ),
+                        )
+                      ),
+                      new Container(
+                          padding: EdgeInsets.only(left: 10),
+                          height: 50,
+                          width: 150,
+                          child: new ButtonTheme(
+                            minWidth: 100,
+                            buttonColor: Colors.green,
+                            child: new RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  //side: BorderSide(color: Colors.black, width: 2,),
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                              ),
+                              onPressed: (){
+                                Services().createContract(Athlete, nat_code, widget.header);
+                              },
+                              child: new Text('ارسال درخواست' , style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
+                            ),
+                          )
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           )
@@ -260,37 +336,3 @@ class CoachDetails extends StatelessWidget{
     );
   }
 }
-
-
-//return Scaffold(
-//body: Stack(
-//children: <Widget>[
-//_buildCoverImage(screensize, context),
-//SafeArea(
-//child: SingleChildScrollView(
-//child: Column(
-//children: <Widget>[
-//SizedBox(
-//height: screensize.height/7,
-//),
-//_buildProfileImage(),
-////_buildFullName(),
-////_buildStatus(context),
-//Container(
-//height: MediaQuery.of(context).size.height * .1,
-//),
-//Container(
-//height: MediaQuery.of(context).size.height * .5,
-//margin: EdgeInsets.only(left: 20, right: 20),
-//decoration: BoxDecoration(
-//borderRadius: BorderRadius.all(Radius.circular(20)),
-//color: Colors.blue
-//),
-//)
-//],
-//),
-//),
-//),
-//],
-//),
-//);

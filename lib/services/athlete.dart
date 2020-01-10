@@ -21,7 +21,7 @@ class Services{
   }
 
   Future<Map> coachDetails(String nat_code, Map<String, String> Header) async{
-    var response = await get('http://10.0.2.2:8000/coach/{$nat_code}/', headers: Header);
+    var response = await get('http://10.0.2.2:8000/coach_/' + nat_code + '/', headers: Header);
     var responsebody = json.decode(response.body);
     return {
       'coach_details': responsebody
@@ -61,6 +61,4 @@ class Services{
       'city': city
     };
   }
-
-
 }
