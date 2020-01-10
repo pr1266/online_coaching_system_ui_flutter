@@ -38,16 +38,13 @@ class Services{
     return response.statusCode;
   }
 
-  Future<Map> search(String cityID, Map<String, String> Header) async{
-    var response = await get('http://10.0.2.2:8000/', headers: Header);
+  Future<Map> search(String Value, Map<String, String> Header) async{
+    var response = await get('http://10.0.2.2:8000/coach/${Value}/', headers: Header);
     var responsebody = json.decode(response.body);
     //TODO inja model sazi
-    List<Coachs> coaches = [];
-    responsebody.forEach((item){
-      coaches.add(Coachs.fromJson(item));
-    });
+    Coachs coach_ = Coachs.fromJson(responsebody);
     return {
-      'coaches': coaches
+      'coaches': coach_
     };
   }
 
