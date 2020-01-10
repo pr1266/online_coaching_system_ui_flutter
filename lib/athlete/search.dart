@@ -115,7 +115,7 @@ class SearchPage extends State<SearchPage_>{
                 margin: EdgeInsets.all(20),
               )
           ),
-          new Expanded(
+          filter == true ? new Expanded(
             child: new SizedBox(
               child: ListView.builder(
                 shrinkWrap: true,
@@ -158,7 +158,129 @@ class SearchPage extends State<SearchPage_>{
                   );
               }),
             ),
-          )
+          ): Container(
+            margin: EdgeInsets.all(30),
+            height: MediaQuery.of(context).size.height * .55,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Colors.white,
+            ),
+            child: new Column(
+              children: <Widget>[
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(right: 140),
+                      child : new Text(
+                        'فیلتر',
+                        style: new TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold
+                        ),
+                      )
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: new Icon(
+                        Icons.close
+                      ),
+                    ),
+                  ],
+                ),
+                new Container(
+                  height: MediaQuery.of(context).size.height * .07,
+                  color: Colors.white,
+                ),
+                new Container(
+                  width: 120,
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * .1,
+                  child: new ButtonTheme(
+                    minWidth: 100,
+                    buttonColor: Colors.white,
+                    child: new RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.black, width: 2,),
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
+                      onPressed: (){},
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          new Container(
+                            child: new Text('انتخاب شهر', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                          ),
+                          new Container(
+                            padding: EdgeInsets.only(right: 5, left: 0),
+                            child: Icon(Icons.keyboard_arrow_down),
+                          )
+
+                        ],
+                      )
+                    ),
+                  )
+                ),
+                new Container(
+                    width: 120,
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * .1,
+                    child: new ButtonTheme(
+                      minWidth: 100,
+                      buttonColor: Colors.white,
+                      child: new RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.black, width: 2,),
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+                          onPressed: (){},
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Container(
+                                child: new Text('مدرک' , style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                              ),
+                              new Container(
+                                child: Icon(Icons.keyboard_arrow_down),
+                              )
+                            ],
+                          )
+                      ),
+                    )
+                ),
+                new Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * .12,
+                  color: Colors.white,
+                ),
+                new Container(
+                  width: 450,
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * .07,
+                  color: Colors.white,
+                  child: new Container(
+                    alignment: Alignment.center,
+                    width: 450,
+                    height: MediaQuery.of(context).size.height * .07,
+                    child: new Text(
+                      'تایید',
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: Colors.white
+                      )
+                    ),
+                    margin: EdgeInsets.only(left: 60, right: 40),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.green
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
