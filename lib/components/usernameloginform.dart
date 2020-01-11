@@ -176,15 +176,15 @@ class _LoginFormState extends State<LoginFormUserName> {
       Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
     } else if(response['role'] == 'coach'){
       //TODO inja page e coach ro push mikonim
-      var inf_response = await Auth().getInfo(_username, header, true);
-      var athlete_username = inf_response['user'];
-      var athlete_nat_code = inf_response['nat_code'];
+      var inf_response = await Auth().getInfo(_username, header, false);
+      var coach_username = inf_response['user'];
+      var coach_nat_code = inf_response['nat_code'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('coach_nat_code', athlete_nat_code);
-      prefs.setString('coach_username', athlete_username);
+      prefs.setString('coach_nat_code', coach_nat_code);
+      prefs.setString('coach_username', coach_username);
       prefs.setString('token', TOKEN);
       print('salam');
-      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: coach.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: coach.myHomePageState(header: header, username: coach_username, nat_code: coach_nat_code,))));
     }
   }
 

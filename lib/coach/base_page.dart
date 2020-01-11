@@ -22,6 +22,7 @@ class myHomePage extends State<myHomePageState>{
   int currentpageindex = 0;
   final children_list = [
     ProfilePage(),
+    myAthlets(),
   ];
 
   changePage(int indexPage){
