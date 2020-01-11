@@ -14,7 +14,7 @@ class RequestsPage extends StatefulWidget{
 class RequestPage_ extends State<RequestsPage>{
 
   List<Contract> reqs = [];
-
+  var header;
   getData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String nat_code = prefs.getString('coach_nat_code');
@@ -22,7 +22,7 @@ class RequestPage_ extends State<RequestsPage>{
     print(nat_code);
     String token = prefs.getString('token');
 
-    var header = {
+    header = {
       'Authorization' : 'JWT ${token}'
     };
     print(header);
@@ -85,11 +85,89 @@ class RequestPage_ extends State<RequestsPage>{
               itemCount: reqs.length,
               itemBuilder: (BuildContext context, int index){
                 return Container(
-                  height: MediaQuery.of(context).size.height * .1,
+                  height: MediaQuery.of(context).size.height * .12,
                   margin: EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: new Row(
+                    children: <Widget>[
+                      new Container(
+                        padding: EdgeInsets.only(right: 10),
+                        height: 80,
+                        width: 90,
+                        child: new CircleAvatar(
+                          backgroundImage: NetworkImage(reqs[index].picture, headers: header),
+                        ),
+                      ),
+                      new Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.only(right: 20),
+                        alignment: Alignment.center,
+                        child: new Text(
+                          reqs[index].first_name + reqs[index].last_name,
+                          style: new TextStyle(
+                            color: Colors.black,
+                            fontSize: 20
+                          ),
+                        ),
+                      ),
+                      new Container(
+                        color: Colors.white,
+                        width: 160,
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            new Container(
+                              padding: EdgeInsets.only(right: 15),
+                              child: new ButtonTheme(
+                                  minWidth: 70,
+                                  buttonColor: Colors.green,
+                                  child: new RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(color: Colors.white, width: 2,),
+                                        borderRadius: BorderRadius.all(Radius.circular(10))
+                                    ),
+                                    onPressed: (){
+                                    },
+                                    child: new Text(
+                                      'قبول',
+                                      style: new TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ),
+                            new Container(
+                              child: new ButtonTheme(
+                                  minWidth: 70,
+                                  buttonColor: Colors.red,
+                                  child: new RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(color: Colors.white, width: 2,),
+                                        borderRadius: BorderRadius.all(Radius.circular(10))
+                                    ),
+                                    onPressed: (){
+                                    },
+                                    child: new Text(
+                                      'رد',
+                                      style: new TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 );
               },

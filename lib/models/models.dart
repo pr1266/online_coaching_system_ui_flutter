@@ -52,11 +52,15 @@ class Contract{
   String coach;
   bool status;
   String picture;
+  String first_name;
+  String last_name;
   Contract.fromJson(Map<String, dynamic> parsedJson){
     ID      = parsedJson['id'];
     athlete = parsedJson['athlete']['nat_code'];
     coach   = parsedJson['coach']['nat_code'];
     status  = parsedJson['status'];
     picture = parsedJson['athlete']['picture'];
+    first_name = utf8.decode(parsedJson['athlete']['first_name'].toString().codeUnits);
+    last_name = utf8.decode(parsedJson['athlete']['last_name'].toString().codeUnits);
   }
 }
