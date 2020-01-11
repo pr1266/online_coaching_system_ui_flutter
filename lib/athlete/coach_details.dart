@@ -143,9 +143,9 @@ class CoachProfile_ extends State<CoachProfile>{
                       child: new Text(
                           first_name + ' ' + last_name,
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_coaching/coach/request.dart';
 
 class ProfilePage extends StatelessWidget{
   @override
@@ -85,7 +86,8 @@ class ProfilePage extends StatelessWidget{
                                   side: BorderSide(color: Colors.red, width: 2,),
                                   borderRadius: BorderRadius.all(Radius.circular(10))
                               ),
-                              onPressed: (){},
+                              onPressed: (){
+                              },
                               child: new Row(
                                 children: <Widget>[
                                   new Icon(Icons.close, color: Colors.red,),
@@ -132,30 +134,53 @@ class ProfilePage extends StatelessWidget{
                     children: <Widget>[
                       new Container(
                         color: Colors.amber,
-                        height: MediaQuery.of(context).size.height * .12,
+                        height: MediaQuery.of(context).size.height * .1,
                       ),
                       new Container(
                         color: Colors.red,
-                        height: MediaQuery.of(context).size.height * .03,
+                        height: MediaQuery.of(context).size.height * .05,
+                        alignment: Alignment.center,
+                        child: new Text(
+                          'شاگردان شما',
+                          style: new TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 new Container(
-                  child: new Column(
-                    children: <Widget>[
-                      new Container(
-                        color: Colors.amber,
-                        height: MediaQuery.of(context).size.height * .12,
-                      ),
-                      new Container(
-                        color: Colors.red,
-                        height: MediaQuery.of(context).size.height * .03,
-                      ),
-                    ],
+                  child: new GestureDetector(
+                    onTap: (){
+                      print('salam');
+                      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: RequestsPage())));
+                    },
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          color: Colors.amber,
+                          height: MediaQuery.of(context).size.height * .1,
+                        ),
+                        new Container(
+                          color: Colors.red,
+                          height: MediaQuery.of(context).size.height * .05,
+                          child: new Text(
+                            'درخواست ها',
+                            style: new TextStyle(
+                                color: Colors.black,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   decoration: new BoxDecoration(
-                      color: Colors.green,
+                      color: Colors.red,
                       borderRadius: BorderRadius.all(Radius.circular(20))
                   ),
                   margin: EdgeInsets.all(10),

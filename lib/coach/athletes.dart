@@ -76,16 +76,17 @@ class myAthlets_ extends State<myAthlets>{
               ),
             ),
           ): ListView.builder(
-              itemBuilder: (BuildContext context, int index){
-                return Container(
-                  height: MediaQuery.of(context).size.height * .1,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white
-                  ),
-                );
-              }
-              )
+            itemCount: my_athlets.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+                height: MediaQuery.of(context).size.height * .1,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Colors.white
+                ),
+              );
+            }
+          )
         ],
       ),
     );
