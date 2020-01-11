@@ -4,6 +4,7 @@ import 'package:validators/validators.dart';
 import 'package:online_coaching/services/auth.dart';
 import 'package:online_coaching/athlete/base_page.dart' as athlete;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:online_coaching/coach/base_page.dart' as coach;
 
 class LoginFormUserName extends StatefulWidget {
   const LoginFormUserName({Key key}) : super(key: key);
@@ -175,7 +176,15 @@ class _LoginFormState extends State<LoginFormUserName> {
       Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
     } else if(response['role'] == 'coach'){
       //TODO inja page e coach ro push mikonim
-      print('coach');
+      var inf_response = await Auth().getInfo(_username, header, true);
+      var athlete_username = inf_response['user'];
+      var athlete_nat_code = inf_response['nat_code'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('coach_nat_code', athlete_nat_code);
+      prefs.setString('coach_username', athlete_username);
+      prefs.setString('token', TOKEN);
+      print('salam');
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: coach.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
     }
   }
 

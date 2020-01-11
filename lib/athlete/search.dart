@@ -145,7 +145,7 @@ class SearchPage extends State<SearchPage_>{
                             height: 60,
                             width: 70,
                             child: new CircleAvatar(
-                              backgroundImage: AssetImage('assets/1.jpg'),
+                              backgroundImage: NetworkImage(coaches[index].picture, headers: header),
                             ),
                           ),
                           new Container(

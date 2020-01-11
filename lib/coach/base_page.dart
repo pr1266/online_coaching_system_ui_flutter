@@ -6,6 +6,10 @@ import 'package:online_coaching/coach/profile.dart';
 import 'package:online_coaching/coach/athletes.dart';
 
 class myHomePageState extends StatefulWidget{
+  final nat_code;
+  final header;
+  final username;
+  myHomePageState({this.header, this.nat_code, this.username});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
