@@ -26,7 +26,7 @@ class myHomePageState extends StatefulWidget{
 class myHomePage extends State<myHomePageState>{
 
   int currentpageindex = 0;
-  final children_list = [
+   var children_list = [
     SearchPage_(),
     // TODO ino mikhaim
     CoachPages(),

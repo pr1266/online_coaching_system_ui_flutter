@@ -125,7 +125,7 @@ class SearchPage extends State<SearchPage_>{
                   return new GestureDetector(
                     onTap: (){
                       print('salam');
-                      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: new coach.CoachProfile(nat_code: coaches[index].nat_code, header: widget.header,))));
+                      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: new coach.CoachProfile(nat_code: coaches[index].nat_code, header: header,))));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * .1,

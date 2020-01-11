@@ -3,6 +3,7 @@ import 'package:online_coaching/pages/moblie_code.dart';
 import 'package:validators/validators.dart';
 import 'package:online_coaching/services/auth.dart';
 import 'package:online_coaching/athlete/base_page.dart' as athlete;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginFormUserName extends StatefulWidget {
   const LoginFormUserName({Key key}) : super(key: key);
@@ -162,12 +163,15 @@ class _LoginFormState extends State<LoginFormUserName> {
     };
     var response = await Auth().getRole(_username.toString(), header);
     if(response['role'] == 'athlete'){
-      //TODO inja page e athlete ro push mikonim
       print('athlete');
       var inf_response = await Auth().getInfo(_username, header, true);
-      // TODO az function bala biroon nmiad
       var athlete_username = inf_response['user'];
       var athlete_nat_code = inf_response['nat_code'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('athlete_nat_code', athlete_nat_code);
+      prefs.setString('athlete_username', athlete_username);
+      prefs.setString('token', TOKEN);
+      print('salam');
       Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
     } else if(response['role'] == 'coach'){
       //TODO inja page e coach ro push mikonim

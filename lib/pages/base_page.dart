@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_coaching/pages/register.dart';
 import 'package:online_coaching/pages/mobile_login.dart';
 import 'package:online_coaching/pages/username_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BasePage extends StatelessWidget{
   @override

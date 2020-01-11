@@ -5,7 +5,8 @@ import 'package:flutter/painting.dart';
 import 'package:http/http.dart';
 import 'package:online_coaching/models/models.dart' as models;
 import 'package:online_coaching/services/athlete.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class CoachProfile extends StatefulWidget{
 
@@ -26,14 +27,27 @@ class CoachProfile_ extends State<CoachProfile>{
   var first_name;
   var last_name;
   var degree;
+  var athlete_nat_code;
+  var token;
+  var coach_nat_code;
   //List<models.CoachRecords> recs = [];
 
   getData() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    athlete_nat_code = prefs.getString('athlete_nat_code');
+    token = prefs.getString('token');
     // TODO inja detail ro betor e kamel begir:
-    var response = await Services().coachDetails(widget.nat_code, widget.header);
-    first_name = response['first_name'];
-    last_name = response['last_name'];
-    degree = response['degree'];
+    var header = {
+      'Authorization': 'JWT ${token}'
+    };
+    var response = await Services().coachDetails(widget.nat_code, header);
+    print(response);
+    first_name = utf8.decode(response['coach_details']['first_name'].toString().codeUnits);
+    last_name = utf8.decode(response['coach_details']['last_name'].toString().codeUnits);
+    degree = utf8.decode(response['coach_details']['degree'].toString().codeUnits);
+    coach_nat_code = response['coach_details']['nat_code'];
+    print('first_name');
+    print(first_name);
     //TODO: inja recordsesh ro begir
   }
 
@@ -63,24 +77,6 @@ class CoachProfile_ extends State<CoachProfile>{
     );
   }
 
-  Widget _buildStatus(BuildContext context){
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(4.0))
-      ),
-      child: Text(
-        degree,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20.0,
-          fontWeight: FontWeight.w300
-        ),
-      ),
-    );
-  }
-  
   Widget _buildCoverImage(Size screensize, BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * .22,
@@ -91,24 +87,12 @@ class CoachProfile_ extends State<CoachProfile>{
     );
   }
 
-  Widget _buildFullName(){
-    TextStyle _nameStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 28.0,
-      fontWeight: FontWeight.bold
-    );
-
-    return Text(
-      first_name + ' ' + last_name,
-      style: _nameStyle,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     Size screensize = MediaQuery.of(context).size;
     return Container(
+      color: Colors.blue,
       child: new ListView(
         children: <Widget>[
           new Stack(
@@ -146,6 +130,7 @@ class CoachProfile_ extends State<CoachProfile>{
                       child: new Text(
                         'نام :',
                         style: TextStyle(
+                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold
                         ),
@@ -156,8 +141,9 @@ class CoachProfile_ extends State<CoachProfile>{
                       color: Colors.white,
                       height: 40,
                       child: new Text(
-                          ' هادی چوپان',
+                          first_name + ' ' + last_name,
                           style: TextStyle(
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                         ),
@@ -175,6 +161,7 @@ class CoachProfile_ extends State<CoachProfile>{
                       child: new Text(
                         'مدرک :',
                         style: TextStyle(
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                         ),
@@ -185,8 +172,9 @@ class CoachProfile_ extends State<CoachProfile>{
                       color: Colors.white,
                       height: 40,
                       child: new Text(
-                        'لیسانس تربیت بدنی',
+                        degree,
                         style: TextStyle(
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                         ),
@@ -204,6 +192,7 @@ class CoachProfile_ extends State<CoachProfile>{
                       child: new Text(
                         'شهر :',
                         style: TextStyle(
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                         ),
@@ -216,8 +205,9 @@ class CoachProfile_ extends State<CoachProfile>{
                       child: new Text(
                         'شیراز',
                         style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -318,8 +308,9 @@ class CoachProfile_ extends State<CoachProfile>{
                                   //side: BorderSide(color: Colors.black, width: 2,),
                                   borderRadius: BorderRadius.all(Radius.circular(10))
                               ),
-                              onPressed: (){
-                                Services().createContract(Athlete, nat_code, widget.header);
+                              onPressed: () async{
+                                print(widget.header);
+                                var response = await Services().createContract(athlete_nat_code, coach_nat_code, widget.header);
                               },
                               child: new Text('ارسال درخواست' , style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
                             ),

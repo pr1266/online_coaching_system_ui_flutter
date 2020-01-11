@@ -32,7 +32,7 @@ class Services{
     var body = {
       'athlete': Athlete,
       'coach': Coach,
-      'status': false
+      'status': false.toString()
     };
     var response = await post('http://10.0.2.2:8000/createcontract/', body: body, headers: Header);
     return response.statusCode;

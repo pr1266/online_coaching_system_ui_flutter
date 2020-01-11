@@ -22,6 +22,7 @@ dependencies:
   validators: ^2.0.0
   http: ^0.12.0+3
   circular_profile_avatar: ^1.0.6
+  shared_preferences: ^0.5.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
