@@ -5,6 +5,7 @@ import 'package:online_coaching/services/auth.dart';
 import 'package:online_coaching/athlete/base_page.dart' as athlete;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:online_coaching/coach/base_page.dart' as coach;
+import 'package:online_coaching/pages/base_page.dart';
 
 class RegisterFormUserName extends StatefulWidget {
   const RegisterFormUserName({Key key}) : super(key: key);
@@ -333,7 +334,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                     if(_formKey.currentState.validate()){
                       print('ok');
                       _formKey.currentState.save();
-//                      _do_login();
+                      _do_sign_up();
                     }
                   },
                 )
@@ -347,39 +348,45 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
     );
   }
 
-  _do_login() async{
+  _do_sign_up() async{
 
-//    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState())));
-    print('in login');
-    var token = await Auth().getToken(_username.toString(), _password.toString());
-    var TOKEN = token['token'];
-    Map <String, String>header = {
-      'Authorization': 'JWT ${TOKEN}'
+
+
+    //token ba admin:
+    var token_response = await Auth().getToken('admin', 'admin');
+    var token = token_response['token'];
+    var header = {
+      'Authorization': 'JWT ${token}'
     };
-    var response = await Auth().getRole(_username.toString(), header);
-    if(response['role'] == 'athlete'){
-      print('athlete');
-      var inf_response = await Auth().getInfo(_username, header, true);
-      var athlete_username = inf_response['user'];
-      var athlete_nat_code = inf_response['nat_code'];
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('athlete_nat_code', athlete_nat_code);
-      prefs.setString('athlete_username', athlete_username);
-      prefs.setString('token', TOKEN);
-      print('salam');
-      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
-    } else if(response['role'] == 'coach'){
-      //TODO inja page e coach ro push mikonim
-      var inf_response = await Auth().getInfo(_username, header, false);
-      var coach_username = inf_response['user'];
-      var coach_nat_code = inf_response['nat_code'];
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('coach_nat_code', coach_nat_code);
-      prefs.setString('coach_username', coach_username);
-      prefs.setString('token', TOKEN);
-      print('salam');
-      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: coach.myHomePageState(header: header, username: coach_username, nat_code: coach_nat_code,))));
+
+    //create user:
+    var user_body = {
+      'username': _username,
+      'password': _password,
+      'role': _character == ROLE.coach ? 'coach' : 'athlete'
+    };
+
+    var user_response_ = await Auth().createUser(user_body, header);
+
+    // aval body:
+    var body = {
+      'nat_code': _nat_code,
+      'first_name': _first_name,
+      'last_name': _last_name,
+      'user': user_response_['username'].toString(),
+      'city': 1.toString(),
+    };
+    if(this._character == ROLE.coach){
+      // morabi
+      var create_response = await Auth().SignUp(body, header, false);
     }
+    else{
+      // varzeshkar
+      var create_response = await Auth().SignUp(body, header, true);
+    }
+
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: BasePage())));
+
   }
 
   bool _submittable() {
