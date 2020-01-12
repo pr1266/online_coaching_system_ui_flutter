@@ -3,6 +3,7 @@ import 'package:online_coaching/services/athlete.dart';
 import 'package:online_coaching/services/auth.dart';
 import 'package:online_coaching/models/models.dart';
 import 'package:online_coaching/athlete/coach_details.dart' as coach;
+import 'dart:async';
 
 class SearchPage_ extends StatefulWidget{
   final header;
@@ -34,12 +35,15 @@ class SearchPage extends State<SearchPage_>{
     // TODO: implement initState
     super.initState();
     getToken();
+    dropdown_val = 'انتخاب شهر';
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool searched = false;
   bool filter = false;
   String _search_val;
+  String dropdown_val = 'انتخاب شهر';
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -116,7 +120,7 @@ class SearchPage extends State<SearchPage_>{
                 margin: EdgeInsets.all(20),
               )
           ),
-          filter == true ? new Expanded(
+          filter == false ? new Expanded(
             child: new SizedBox(
               child: ListView.builder(
                 shrinkWrap: true,
@@ -201,32 +205,43 @@ class SearchPage extends State<SearchPage_>{
                   color: Colors.white,
                 ),
                 new Container(
+                  height: 40,
                   width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.black
+                    ),
+                    color: Colors.white,
+                  ),
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * .1,
+
                   child: new ButtonTheme(
                     minWidth: 100,
                     buttonColor: Colors.white,
-                    child: new RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black, width: 2,),
-                        borderRadius: BorderRadius.all(Radius.circular(10))
+                    child: new DropdownButton<String>(
+                      style: new TextStyle(
+                        fontSize: 19,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold
                       ),
-                      onPressed: (){},
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          new Container(
-                            child: new Text('انتخاب شهر', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                          ),
-                          new Container(
-                            padding: EdgeInsets.only(right: 5, left: 0),
-                            child: Icon(Icons.keyboard_arrow_down),
-                          )
-
-                        ],
-                      )
-                    ),
+                      value: dropdown_val,
+                      hint: new Text('انتخاب شهر'),
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      items: <String>['انتخاب شهر','شیراز', 'اصفهان'].map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          print(value);
+                          dropdown_val = value;
+                        });
+                      },
+                    )
                   )
                 ),
                 new Container(
@@ -249,6 +264,8 @@ class SearchPage extends State<SearchPage_>{
                                 child: new Text('مدرک' , style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               new Container(
+                                width: 30,
+                                padding: EdgeInsets.only(right: 20),
                                 child: Icon(Icons.keyboard_arrow_down),
                               )
                             ],
