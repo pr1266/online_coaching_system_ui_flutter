@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_coaching/pages/moblie_code.dart';
-import 'package:validators/validators.dart';
+import 'package:validators/validators.dart' as validator;
 import 'package:online_coaching/services/auth.dart';
 import 'package:online_coaching/athlete/base_page.dart' as athlete;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +24,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
   String _nat_code;
 
   ROLE _character = ROLE.athlete;
-
+  final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -72,6 +72,8 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
+                  } else if(value.length < 8){
+                    return 'طول نام کاربری نباید کمتر از 8 کاراکتر باشد';
                   }
                 },
               ),
@@ -80,6 +82,8 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
             Container(
               margin: EdgeInsets.only(right: 30, left: 30),
               child: TextFormField(
+                obscureText: true,
+                controller: myController,
                 cursorColor: Colors.deepPurple,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -106,6 +110,8 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
+                  } else if(value.length < 8){
+                    return 'طول گذرواژه نباید کمتر از 8 کاراکتر باشد';
                   }
                 },
               ),
@@ -114,6 +120,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
             Container(
               margin: EdgeInsets.only(right: 30, left: 30),
               child: TextFormField(
+                obscureText: true,
                 cursorColor: Colors.deepPurple,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -140,6 +147,10 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
+                  } else if(value.length < 8){
+                    return 'طول گذرواژه نباید کمتر از 8 کاراکتر باشد';
+                  } else if(myController.text != value){
+                    return 'گذرواژه ها با هم مطابق نیستند';
                   }
                 },
               ),
@@ -174,6 +185,8 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
+                  } else if(validator.isNumeric(value)){
+                    return 'لطفا نام خود را به فرمت مناسب وارد کنید';
                   }
                 },
               ),
@@ -208,6 +221,8 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
+                  } else if(validator.isNumeric(value)){
+                    return 'لطفا نام خانوادگی خود را به فرمت مناسب وارد کنید';
                   }
                 },
               ),
@@ -242,6 +257,10 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
+                  } else if(!validator.isNumeric(value)){
+                    return 'لطفا کدملی خود را به فرمت مناسب وارد کنید';
+                  } else if(value.length != 10){
+                    return 'کد ملی باید دقیقا ده رقم باشد';
                   }
                 },
               ),
@@ -290,7 +309,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
             ),
             //TODO ta inja
             SizedBox(height: MediaQuery.of(context).size.height * .04),
-            new Container(height: MediaQuery.of(context).size.height * .16),
+            //new Container(height: MediaQuery.of(context).size.height * .06),
             // button
             new Container(
                 color: Colors.white,
@@ -314,11 +333,14 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                     if(_formKey.currentState.validate()){
                       print('ok');
                       _formKey.currentState.save();
-                      _do_login();
+//                      _do_login();
                     }
                   },
                 )
             ),
+            Container(
+              height: MediaQuery.of(context).size.height * .05,
+            )
           ],
         ),
       ),
