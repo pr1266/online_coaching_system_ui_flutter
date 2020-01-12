@@ -4,6 +4,8 @@ import 'dart:convert';
 //TODO pages:
 import 'package:online_coaching/coach/profile.dart';
 import 'package:online_coaching/coach/athletes.dart';
+import 'package:online_coaching/services/coach.dart';
+import 'package:online_coaching/services/auth.dart';
 
 class myHomePageState extends StatefulWidget{
   final nat_code;
@@ -18,6 +20,21 @@ class myHomePageState extends StatefulWidget{
 }
 
 class myHomePage extends State<myHomePageState>{
+
+  var picture;
+
+  getData() async{
+    var response = await Auth().getInfo(widget.username, widget.header, false);
+    setState(() {
+      picture = response['picture'];
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getData();
+  }
 
   int currentpageindex = 0;
   final children_list = [
@@ -54,16 +71,23 @@ class myHomePage extends State<myHomePageState>{
                   onTap: (){
                     changePage(0);
                   },
-                  child: new Icon(Icons.account_box),
+                  child: new CircleAvatar(
+                    backgroundImage: NetworkImage(picture, headers: widget.header),
+                  ),
                 ),
               ),
               new Container(
+                height: 70,
+                width: 70,
                 padding: EdgeInsets.all(10),
                 child: new GestureDetector(
                   onTap: (){
                     changePage(1);
                   },
-                  child: new Icon(Icons.assignment),
+                  child: new CircleAvatar(
+                    backgroundImage: currentpageindex == 1 ? AssetImage('assets/navbar/my_coach_butt_green.png'): AssetImage('assets/navbar/my_coach_butt_black.png'),
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ),
               new Container(
@@ -72,7 +96,10 @@ class myHomePage extends State<myHomePageState>{
                   onTap: (){
                     changePage(2);
                   },
-                  child: new Icon(Icons.search),
+                  child: new CircleAvatar(
+                    backgroundImage: currentpageindex == 2 ? AssetImage('assets/navbar/search_butt_green.png'): AssetImage('assets/navbar/search_butt_black.png'),
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ),
               new Container(
@@ -81,7 +108,10 @@ class myHomePage extends State<myHomePageState>{
                   onTap: (){
                     changePage(3);
                   },
-                  child: new Icon(Icons.play_arrow),
+                  child: new CircleAvatar(
+                    backgroundImage: currentpageindex == 3 ? AssetImage('assets/navbar/pacage_butt_green.png'): AssetImage('assets/navbar/pacage_butt_black.png'),
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ),
               new Container(
@@ -90,7 +120,10 @@ class myHomePage extends State<myHomePageState>{
                   onTap: (){
                     changePage(4);
                   },
-                  child: new Icon(Icons.sms),
+                  child: new CircleAvatar(
+                    backgroundImage: currentpageindex == 4 ? AssetImage('assets/navbar/support_butt_green.png'): AssetImage('assets/navbar/support_butt_black.png'),
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               )
             ],

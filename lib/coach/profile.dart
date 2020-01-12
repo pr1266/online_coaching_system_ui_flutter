@@ -42,21 +42,38 @@ class ProfilePage extends StatelessWidget{
               children: <Widget>[
                 new Container(
                   height: MediaQuery.of(context).size.height * .2,
+                  //width: MediaQuery.of(context).size.width * .5,
                   margin: EdgeInsets.only(top: 10),
                   child: new Row(
                     children: <Widget>[
-                      new Container(
-                        child: new Text(
-                          'هادی چوپان',
-                          style: new TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        height: MediaQuery.of(context).size.height * .2,
-                        width: 215,
-                        alignment: Alignment.center,
+                      new Column(
+                        children: <Widget>[
+                          new Container(
+                            padding: EdgeInsets.only(right: 20),
+                            width: MediaQuery.of(context).size.width * .5,
+                            child: new Row(
+                              children: <Widget>[
+                                new Container(
+                                  width: 100,
+                                  child: new Text(
+                                    'هادی چوپان',
+                                    style: new TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  height: MediaQuery.of(context).size.height * .2,
+                                  alignment: Alignment.center,
+                                ),
+                                new Container(
+                                  width: 50,
+                                  child: Image.asset('assets/coach_profile/verify.png'),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                       new Container(
                         width: 150,
@@ -113,7 +130,6 @@ class ProfilePage extends StatelessWidget{
                                 borderRadius: BorderRadius.all(Radius.circular(10))
                               ),
                               onPressed: () async{
-
                                 //var response = await Services().createContract(athlete_nat_code, coach_nat_code, widget.header);
                               },
                               child: new Text('ویرایش اطلاعات' , style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
@@ -127,17 +143,16 @@ class ProfilePage extends StatelessWidget{
                   margin: EdgeInsets.all(10),
                   height: MediaQuery.of(context).size.height * .15,
                   decoration: new BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                   ),
                   child: new Column(
                     children: <Widget>[
                       new Container(
-                        color: Colors.amber,
                         height: MediaQuery.of(context).size.height * .1,
+                        child: Image.asset('assets/coach_profile/students_icon.png'),
                       ),
                       new Container(
-                        color: Colors.red,
                         height: MediaQuery.of(context).size.height * .05,
                         alignment: Alignment.center,
                         child: new Text(
@@ -148,6 +163,7 @@ class ProfilePage extends StatelessWidget{
                             fontWeight: FontWeight.bold
                           ),
                         ),
+                        width: MediaQuery.of(context).size.width * .85,
                       ),
                     ],
                   ),
@@ -161,11 +177,10 @@ class ProfilePage extends StatelessWidget{
                     child: new Column(
                       children: <Widget>[
                         new Container(
-                          color: Colors.amber,
                           height: MediaQuery.of(context).size.height * .1,
+                          child: Image.asset('assets/coach_profile/requests_icon.png'),
                         ),
                         new Container(
-                          color: Colors.red,
                           height: MediaQuery.of(context).size.height * .05,
                           child: new Text(
                             'درخواست ها',
@@ -180,11 +195,12 @@ class ProfilePage extends StatelessWidget{
                     ),
                   ),
                   decoration: new BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.grey,
                       borderRadius: BorderRadius.all(Radius.circular(20))
                   ),
                   margin: EdgeInsets.all(10),
                   height: MediaQuery.of(context).size.height * .15,
+                  width: MediaQuery.of(context).size.width * .85,
                 ),
               ],
             ),
