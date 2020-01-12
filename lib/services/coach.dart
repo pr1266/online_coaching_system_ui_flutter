@@ -30,7 +30,7 @@ class Services{
 
   Future<int> DeclinContract(String ContractID, Map<String, String> Header) async{
 
-    var response = await delete('http://10.0.2.2:8000/contract/${ContractID}/', headers: Header);
+    var response = await delete('http://10.0.2.2:8000/contract/${ContractID}/delete/', headers: Header);
     return response.statusCode;
   }
 
