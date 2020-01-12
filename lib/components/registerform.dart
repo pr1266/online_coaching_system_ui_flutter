@@ -18,9 +18,12 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
   bool _agreedToTOS = true;
   String _username;
   String _password;
+  String _password_;
   String _first_name;
   String _last_name;
   String _nat_code;
+
+  ROLE _character = ROLE.athlete;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +135,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                   labelText: 'تکرار گذرواژه',
                 ),
                 onSaved: (String value){
-                  _username = value;
+                  _password_ = value;
                 },
                 validator: (String value) {
                   if (value.trim().isEmpty) {
@@ -166,7 +169,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                   labelText: 'نام',
                 ),
                 onSaved: (String value){
-                  _username = value;
+                  _first_name = value;
                 },
                 validator: (String value) {
                   if (value.trim().isEmpty) {
@@ -200,7 +203,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                   labelText: 'نام خانوادگی',
                 ),
                 onSaved: (String value){
-                  _username = value;
+                  _last_name = value;
                 },
                 validator: (String value) {
                   if (value.trim().isEmpty) {
@@ -234,13 +237,55 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                   labelText: 'کدملی',
                 ),
                 onSaved: (String value){
-                  _username = value;
+                  _nat_code = value;
                 },
                 validator: (String value) {
                   if (value.trim().isEmpty) {
                     return 'پر کردن این قسمت الزامی است';
                   }
                 },
+              ),
+            ),
+            new Container(
+              padding: EdgeInsets.only(left: 15.0, right: 15.0),
+              height: MediaQuery.of(context).size.height * .1,
+              color: Colors.white,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Radio(
+                      value: ROLE.athlete,
+                      groupValue: _character,
+                      onChanged: (value){
+                        setState(() {
+                          _character = value;
+                          print(value.runtimeType);
+                        });
+                      }),
+                  new Text(
+                    'ورزشکار', style: new TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Vazir',
+                      fontSize: 20
+                  ),
+                  ),
+                  Radio(
+                      value: ROLE.coach,
+                      groupValue: _character,
+                      onChanged: (value){
+                        setState(() {
+                          _character = value;
+                          print(value);
+                        });
+                      }),
+                  new Text(
+                    'مربی', style: new TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Vazir',
+                      fontSize: 20
+                  ),
+                  ),
+                ],
               ),
             ),
             //TODO ta inja
@@ -258,7 +303,7 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                       side: BorderSide(color: Colors.white)
                   ),
                   child: new Text(
-                    'ورود',
+                    'ثبت نام',
                     style: new TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -274,20 +319,6 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
                   },
                 )
             ),
-            new Container(
-              alignment: Alignment.center,
-              height: MediaQuery.of(context).size.height * .1,
-              child: new GestureDetector(
-                child: new Text(
-                  'فراموشی رمز',
-                  style: new TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),
@@ -344,3 +375,5 @@ class RegisterFormUserName_ extends State<RegisterFormUserName> {
     });
   }
 }
+
+enum ROLE { coach, athlete}
