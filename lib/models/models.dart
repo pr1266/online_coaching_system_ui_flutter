@@ -21,10 +21,10 @@ class Athlets{
   String picture;
 
   Athlets.fromJson(Map<String, dynamic> parsedJson){
-    nat_code   = parsedJson['nat_code'];
-    first_name = utf8.decode(parsedJson['first_name'].toString().codeUnits);
-    last_name  = utf8.decode(parsedJson['last_name'].toString().codeUnits);
-    picture    = parsedJson['picture'];
+    nat_code   = parsedJson['athlete']['nat_code'];
+    first_name = utf8.decode(parsedJson['athlete']['first_name'].toString().codeUnits);
+    last_name  = utf8.decode(parsedJson['athlete']['last_name'].toString().codeUnits);
+    picture    = parsedJson['athlete']['picture'];
   }
 }
 

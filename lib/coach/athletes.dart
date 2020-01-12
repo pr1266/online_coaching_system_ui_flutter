@@ -15,18 +15,20 @@ class myAthlets extends StatefulWidget{
 class myAthlets_ extends State<myAthlets>{
 
   List<Athlets> my_athlets = [];
-
+  var header;
   getData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String nat_code = prefs.getString('coach_nat_code');
     String token = prefs.getString('token');
-    var header = {
+    header = {
       'Authorization': 'JWT ${token}'
     };
     var response = await Services().myAthlets(nat_code, header);
     print('response');
     print(response);
-    my_athlets.addAll(response['athlets']);
+    setState(() {
+      my_athlets.addAll(response['athlets']);
+    });
   }
 
   @override
@@ -42,6 +44,7 @@ class myAthlets_ extends State<myAthlets>{
     return Container(
       color: Colors.blue,
       child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height * .08,
@@ -76,13 +79,40 @@ class myAthlets_ extends State<myAthlets>{
               ),
             ),
           ): ListView.builder(
+            shrinkWrap: true,
             itemCount: my_athlets.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
+                margin: EdgeInsets.only(left: 15, right: 15, top: 20),
                 height: MediaQuery.of(context).size.height * .1,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Colors.white
+                ),
+                child: new Row(
+                  children: <Widget>[
+                    new Container(
+                      padding: EdgeInsets.only(right: 10),
+                      height: 60,
+                      width: 70,
+                      child: new CircleAvatar(
+                        backgroundImage: NetworkImage(my_athlets[index].picture, headers: header),
+                      ),
+                    ),
+                    new Container(
+                      width: MediaQuery.of(context).size.width * .755,
+                      alignment: Alignment.center,
+                      //padding: EdgeInsets.only(right: 20),
+                      child: new Text(
+                        my_athlets[index].first_name + ' ' + my_athlets[index].last_name,
+                        style: new TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             }

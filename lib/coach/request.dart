@@ -15,9 +15,10 @@ class RequestPage_ extends State<RequestsPage>{
 
   List<Contract> reqs = [];
   var header;
+  var nat_code;
   getData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String nat_code = prefs.getString('coach_nat_code');
+    nat_code = prefs.getString('coach_nat_code');
     print('coach nat_code');
     print(nat_code);
     String token = prefs.getString('token');
@@ -78,7 +79,8 @@ class RequestPage_ extends State<RequestsPage>{
               child: new Text(
                 'شما هیچ درخواستی ندارید',
                 style: new TextStyle(
-                    fontSize: 20
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ): new Container(
@@ -131,7 +133,13 @@ class RequestPage_ extends State<RequestsPage>{
                                           side: BorderSide(color: Colors.white, width: 2,),
                                           borderRadius: BorderRadius.all(Radius.circular(10))
                                       ),
-                                      onPressed: (){
+                                      onPressed: () async{
+                                        print(reqs[index].ID);
+                                        print(reqs[index].athlete);
+                                        print(nat_code);
+                                        print(header);
+                                        var response = await Services().AcceptContract(reqs[index].ID.toString(), reqs[index].athlete, nat_code, false, header);
+                                        print(response);
                                       },
                                       child: new Text(
                                         'قبول',
