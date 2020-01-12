@@ -1,7 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:online_coaching/coach/request.dart';
+import 'package:online_coaching/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget{
+class ProfilePage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ProfilePage_();
+  }
+}
+
+class ProfilePage_ extends State<ProfilePage>{
+
+
+  var header;
+  var picture;
+  var first_name;
+  var last_name;
+
+  getData() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    String user_name = prefs.getString('coach_username');
+    header = {
+      'Authorization': 'JWT ${token}'
+    };
+    var response = await Auth().getInfo(user_name, header, false);
+    print('response bosy');
+    print(response);
+    setState(() {
+      picture = response['picture'];
+      first_name = response['first_name'];
+      last_name = response['last_name'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -56,7 +97,7 @@ class ProfilePage extends StatelessWidget{
                                 new Container(
                                   width: 100,
                                   child: new Text(
-                                    'هادی چوپان',
+                                    first_name + ' ' + last_name,
                                     style: new TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
@@ -79,7 +120,7 @@ class ProfilePage extends StatelessWidget{
                         width: 150,
                         height: 150,
                         child: new CircleAvatar(
-                          backgroundImage: AssetImage('assets/1.jpg'),
+                          backgroundImage: NetworkImage('http://10.0.2.2:8000' + picture),
                         ),
                       ),
                     ],
