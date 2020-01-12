@@ -1,0 +1,346 @@
+import 'package:flutter/material.dart';
+import 'package:online_coaching/pages/moblie_code.dart';
+import 'package:validators/validators.dart';
+import 'package:online_coaching/services/auth.dart';
+import 'package:online_coaching/athlete/base_page.dart' as athlete;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:online_coaching/coach/base_page.dart' as coach;
+
+class RegisterFormUserName extends StatefulWidget {
+  const RegisterFormUserName({Key key}) : super(key: key);
+
+  @override
+  RegisterFormUserName_ createState() => RegisterFormUserName_();
+}
+
+class RegisterFormUserName_ extends State<RegisterFormUserName> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _agreedToTOS = true;
+  String _username;
+  String _password;
+  String _first_name;
+  String _last_name;
+  String _nat_code;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: new Container(
+        decoration: new BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(15))
+        ),
+        margin: EdgeInsets.only(left: 15, right: 15),
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: ListView(
+          shrinkWrap: true,
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height * .02,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: TextFormField(
+                cursorColor: Colors.deepPurple,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  labelText: 'نام کاربری',
+                ),
+                onSaved: (String value){
+                  _username = value;
+                },
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'پر کردن این قسمت الزامی است';
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: TextFormField(
+                cursorColor: Colors.deepPurple,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  labelText: 'گذرواژه',
+                ),
+                onSaved: (String value){
+                  _password = value;
+                },
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'پر کردن این قسمت الزامی است';
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: TextFormField(
+                cursorColor: Colors.deepPurple,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  labelText: 'تکرار گذرواژه',
+                ),
+                onSaved: (String value){
+                  _username = value;
+                },
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'پر کردن این قسمت الزامی است';
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: TextFormField(
+                cursorColor: Colors.deepPurple,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  labelText: 'نام',
+                ),
+                onSaved: (String value){
+                  _username = value;
+                },
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'پر کردن این قسمت الزامی است';
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: TextFormField(
+                cursorColor: Colors.deepPurple,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  labelText: 'نام خانوادگی',
+                ),
+                onSaved: (String value){
+                  _username = value;
+                },
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'پر کردن این قسمت الزامی است';
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: TextFormField(
+                cursorColor: Colors.deepPurple,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  labelText: 'کدملی',
+                ),
+                onSaved: (String value){
+                  _username = value;
+                },
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'پر کردن این قسمت الزامی است';
+                  }
+                },
+              ),
+            ),
+            //TODO ta inja
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
+            new Container(height: MediaQuery.of(context).size.height * .16),
+            // button
+            new Container(
+                color: Colors.white,
+                margin: EdgeInsets.only(left: 20, right: 20),
+                height: MediaQuery.of(context).size.height * .07,
+                child: new FlatButton(
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(50.0),
+                      side: BorderSide(color: Colors.white)
+                  ),
+                  child: new Text(
+                    'ورود',
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25
+                    ),
+                  ),
+                  onPressed: (){
+                    if(_formKey.currentState.validate()){
+                      print('ok');
+                      _formKey.currentState.save();
+                      _do_login();
+                    }
+                  },
+                )
+            ),
+            new Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height * .1,
+              child: new GestureDetector(
+                child: new Text(
+                  'فراموشی رمز',
+                  style: new TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _do_login() async{
+
+//    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState())));
+    print('in login');
+    var token = await Auth().getToken(_username.toString(), _password.toString());
+    var TOKEN = token['token'];
+    Map <String, String>header = {
+      'Authorization': 'JWT ${TOKEN}'
+    };
+    var response = await Auth().getRole(_username.toString(), header);
+    if(response['role'] == 'athlete'){
+      print('athlete');
+      var inf_response = await Auth().getInfo(_username, header, true);
+      var athlete_username = inf_response['user'];
+      var athlete_nat_code = inf_response['nat_code'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('athlete_nat_code', athlete_nat_code);
+      prefs.setString('athlete_username', athlete_username);
+      prefs.setString('token', TOKEN);
+      print('salam');
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: athlete.myHomePageState(header: header, username: athlete_username, nat_code: athlete_nat_code,))));
+    } else if(response['role'] == 'coach'){
+      //TODO inja page e coach ro push mikonim
+      var inf_response = await Auth().getInfo(_username, header, false);
+      var coach_username = inf_response['user'];
+      var coach_nat_code = inf_response['nat_code'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('coach_nat_code', coach_nat_code);
+      prefs.setString('coach_username', coach_username);
+      prefs.setString('token', TOKEN);
+      print('salam');
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: coach.myHomePageState(header: header, username: coach_username, nat_code: coach_nat_code,))));
+    }
+  }
+
+  bool _submittable() {
+    return _agreedToTOS;
+  }
+
+  void _submit() {
+    _formKey.currentState.validate();
+    print('Form submitted');
+  }
+
+  void _setAgreedToTOS(bool newValue) {
+    setState(() {
+      _agreedToTOS = newValue;
+    });
+  }
+}

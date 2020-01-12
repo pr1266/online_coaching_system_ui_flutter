@@ -1,5 +1,6 @@
 import 'package:online_coaching/pages/base_page.dart';
 import 'package:flutter/material.dart';
+import 'package:online_coaching/pages/username_register.dart';
 
 class RegisterPage extends StatelessWidget{
   @override 
@@ -35,7 +36,10 @@ class RegisterPage extends StatelessWidget{
       fontSize: 20
       ),
       ),
-      onPressed: (){},
+      onPressed: (){
+        //TODO inja:
+        Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new Directionality(textDirection: TextDirection.rtl, child: UserNameLogin())));
+      },
       )
       ),
 

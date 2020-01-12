@@ -28,7 +28,7 @@ class ProfilePage extends StatelessWidget{
             ),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(15))
             ),
           ),
           new Container(

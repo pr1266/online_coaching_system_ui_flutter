@@ -7,6 +7,7 @@ import 'package:online_coaching/athlete/profile.dart';
 import 'package:online_coaching/athlete/programs.dart';
 import 'package:online_coaching/athlete/mycoaches.dart';
 import 'package:online_coaching/athlete/coach_details.dart';
+import 'package:online_coaching/services/auth.dart';
 
 class myHomePageState extends StatefulWidget{
 
@@ -25,9 +26,23 @@ class myHomePageState extends StatefulWidget{
 
 class myHomePage extends State<myHomePageState>{
 
+  getData() async{
+    var response = await Auth().getInfo(widget.username, widget.header, true);
+    setState(() {
+      picture = response['picture'];
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getData();
+  }
+
+  var picture;
   int currentpageindex = 0;
    var children_list = [
-    SearchPage_(),
+    Container(),
     // TODO ino mikhaim
     CoachPages(),
     // TODO ino mikhaim
@@ -61,55 +76,71 @@ class myHomePage extends State<myHomePageState>{
             )
           ),
           child: new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new Container(
-                padding: EdgeInsets.all(10),
-                child: new GestureDetector(
-                  onTap: (){
-                    changePage(0);
-                  },
-                  child: new Icon(Icons.account_box),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new Container(
+              padding: EdgeInsets.all(10),
+              child: new GestureDetector(
+                onTap: (){
+                  changePage(0);
+                },
+                child: new CircleAvatar(
+                  backgroundImage: NetworkImage(picture, headers: widget.header),
                 ),
               ),
-              new Container(
-                padding: EdgeInsets.all(10),
-                child: new GestureDetector(
-                  onTap: (){
-                    changePage(1);
-                  },
-                  child: new Icon(Icons.assignment),
+            ),
+            new Container(
+              height: 70,
+              width: 70,
+              padding: EdgeInsets.all(10),
+              child: new GestureDetector(
+                onTap: (){
+                  changePage(1);
+                },
+                child: new CircleAvatar(
+                  backgroundImage: currentpageindex == 1 ? AssetImage('assets/navbar/my_coach_butt_green.png'): AssetImage('assets/navbar/my_coach_butt_black.png'),
+                  backgroundColor: Colors.white,
                 ),
               ),
-              new Container(
-                padding: EdgeInsets.all(10),
-                child: new GestureDetector(
-                  onTap: (){
-                    changePage(2);
-                  },
-                  child: new Icon(Icons.search),
+            ),
+            new Container(
+              padding: EdgeInsets.all(10),
+              child: new GestureDetector(
+                onTap: (){
+                  changePage(2);
+                },
+                child: new CircleAvatar(
+                  backgroundImage: currentpageindex == 2 ? AssetImage('assets/navbar/search_butt_green.png'): AssetImage('assets/navbar/search_butt_black.png'),
+                  backgroundColor: Colors.white,
                 ),
               ),
-              new Container(
-                padding: EdgeInsets.all(10),
-                child: new GestureDetector(
-                  onTap: (){
-                    changePage(3);
-                  },
-                  child: new Icon(Icons.play_arrow),
+            ),
+            new Container(
+              padding: EdgeInsets.all(10),
+              child: new GestureDetector(
+                onTap: (){
+                  changePage(3);
+                },
+                child: new CircleAvatar(
+                  backgroundImage: currentpageindex == 3 ? AssetImage('assets/navbar/pacage_butt_green.png'): AssetImage('assets/navbar/pacage_butt_black.png'),
+                  backgroundColor: Colors.white,
                 ),
               ),
-              new Container(
-                padding: EdgeInsets.all(10),
-                child: new GestureDetector(
-                  onTap: (){
-                    changePage(4);
-                  },
-                  child: new Icon(Icons.sms),
+            ),
+            new Container(
+              padding: EdgeInsets.all(10),
+              child: new GestureDetector(
+                onTap: (){
+                  changePage(4);
+                },
+                child: new CircleAvatar(
+                  backgroundImage: currentpageindex == 4 ? AssetImage('assets/navbar/support_butt_green.png'): AssetImage('assets/navbar/support_butt_black.png'),
+                  backgroundColor: Colors.white,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
+        ),
         )
     );
   }
