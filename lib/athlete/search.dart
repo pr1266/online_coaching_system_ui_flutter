@@ -216,7 +216,6 @@ class SearchPage extends State<SearchPage_>{
                     color: Colors.white,
                   ),
                   alignment: Alignment.center,
-
                   child: new ButtonTheme(
                     minWidth: 100,
                     buttonColor: Colors.white,
@@ -278,30 +277,35 @@ class SearchPage extends State<SearchPage_>{
                   height: MediaQuery.of(context).size.height * .12,
                   color: Colors.white,
                 ),
-                new Container(
-                  width: 450,
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * .07,
-                  color: Colors.white,
+                new GestureDetector(
+                  onTap: (){
+                    do_search_();
+                  },
                   child: new Container(
-                    alignment: Alignment.center,
                     width: 450,
+                    alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height * .07,
-                    child: new Text(
-                      'تایید',
-                      style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.white
-                      )
-                    ),
-                    margin: EdgeInsets.only(left: 60, right: 40),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Colors.green
+                    color: Colors.white,
+                    child: new Container(
+                      alignment: Alignment.center,
+                      width: 450,
+                      height: MediaQuery.of(context).size.height * .07,
+                      child: new Text(
+                          'تایید',
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.white
+                          )
+                      ),
+                      margin: EdgeInsets.only(left: 60, right: 40),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          color: Colors.green
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -311,6 +315,7 @@ class SearchPage extends State<SearchPage_>{
   }
 
   do_search() async{
+    coaches.clear();
     //TODO DO SEARCH
     searched = true;
     //_formKey.currentState.save();
@@ -318,6 +323,30 @@ class SearchPage extends State<SearchPage_>{
     var response = await Services().search(_search_val, header);
     print(response['coaches']);
     coaches.add(response['coaches']);
+    setState(() {
+      searched = true;
+      print(searched);
+      print(coaches);
+    });
+  }
+
+  var city_list =
+    {
+      'اصفهان': 1,
+      '': '',
+      'شیراز': 3
+    };
+
+  do_search_() async{
+    coaches.clear();
+    //TODO DO SEARCH
+    searched = true;
+    filter = false;
+    //_formKey.currentState.save();
+    print(city_list[dropdown_val].toString());
+    var response = await Services().search_city(3.toString(), header);
+    print(response['coaches']);
+    coaches.addAll(response['coaches']);
     setState(() {
       searched = true;
       print(searched);

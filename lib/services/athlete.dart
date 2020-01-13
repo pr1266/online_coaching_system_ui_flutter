@@ -48,6 +48,22 @@ class Services{
     };
   }
 
+  Future<Map> search_city(String Value, Map<String, String> Header) async{
+    var body = {
+      'city': Value.toString()
+    };
+    var response = await post('http://10.0.2.2:8000/search_city/', body: body, headers: Header);
+    var responsebody = json.decode(response.body);
+    //TODO inja model sazi
+    List<Coachs> coach_ = [];
+    responsebody.forEach((item){
+      coach_.add(Coachs.fromJson(item));
+    });
+    return {
+      'coaches': coach_
+    };
+  }
+
   Future<Map> getCity(Map<String, String> Header) async{
     var response = await get('http://10.0.2.2:8000/', headers: Header);
     var responsebody = json.decode(response.body);
